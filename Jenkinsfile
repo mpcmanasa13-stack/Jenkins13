@@ -16,7 +16,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 git branch: 'master',
-                    url: 'https://github.com/mpcmanasa13-stack/Jenkins13.git'
+                    url: 'https://github.com/KeerthanaAR123/K.git'
                     
             }
         }
