@@ -16,8 +16,8 @@ pipeline {
         stage('Checkout') {
             steps {
                 git branch: 'master',
-                    url: 'https://github.com/KeerthanaAR123/Maven-Demo.git',
-                    credentialsId: 'github-token'
+                    url: 'https://github.com/mpcmanasa13-stack/Jenkins13.git'
+                    
             }
         }
 
@@ -54,14 +54,14 @@ pipeline {
             emailext (
                 subject: "SUCCESS: ${JOB_NAME} - Build #${BUILD_NUMBER}",
                 body: "Build was successful! View details here: ${BUILD_URL}",
-                to: "kk9741463496@gmail.com"
+                to: "mpcmanasa13@gmail.com"
             )
         }
         failure {
             emailext (
                 subject: "FAILED: ${JOB_NAME} - Build #${BUILD_NUMBER}",
                 body: "Build failed. Please check the console output: ${BUILD_URL}",
-                to: "kk9741463496@gmail.com"
+                to: "mpcmanasa13@gmail.com"
             )
         }
     }
