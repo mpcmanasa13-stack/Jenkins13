@@ -1,18 +1,10 @@
 pipeline {
     agent any
 
-    tools {
-        maven 'Maven'
-        jdk 'JDK21'
-    }
-
     stages {
-
         stage('Checkout') {
             steps {
-                git branch: 'main',
-                    url: 'https://github.com/mpcmanasa13-stack/Jenkins13',
-                    credentialsId: 'github-token'
+                git 'https://github.com/mpcmanasa13-stack/Jenkins13.git'
             }
         }
 
@@ -33,31 +25,17 @@ pipeline {
                 sh 'mvn package'
             }
         }
-
-        stage('Run Application') {
-            steps {
-                sh 'mvn exec:java -Dexec.mainClass="com.example.app.App"'
-            }
-        }
     }
 
-    
     post {
-
         success {
-            emailext (
-                subject: "SUCCESS: ${JOB_NAME} #${BUILD_NUMBER}",
-                body: "Build succeeded!\nCheck: ${BUILD_URL}",
-                to: "mpcmanasa13@gmail.com"
-            )
+            slackSend channel: '#aiml',
+                      message: 'BUILD SUCCESS: Maven Quiz App built successfully.'
         }
 
         failure {
-            emailext (
-                subject: "FAILED: ${JOB_NAME} #${BUILD_NUMBER}",
-                body: "Build failed!\nCheck: ${BUILD_URL}",
-                to: "mpcmanasa13@gmail.com"
-            )
+            slackSend channel: '#aiml',
+                      message: 'BUILD FAILED: Maven Quiz App failed.'
         }
     }
 }
